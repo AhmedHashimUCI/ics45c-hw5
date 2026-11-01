@@ -31,5 +31,16 @@ namespace list {
 
 	}
 
+
+	void free(Node* head){
+		for(Node* current = head; current !=nullptr;){
+			
+			Node* next = current->next;
+			delete current;
+			current = next;
+		}
+
+	}
+
 }
 

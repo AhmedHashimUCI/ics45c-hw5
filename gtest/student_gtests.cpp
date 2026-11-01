@@ -22,8 +22,26 @@ TEST(ListTests, FromStringBasic) {
     EXPECT_EQ(foo_list->data, 'o');
     ASSERT_EQ(foo_list->next, nullptr);
 
+
     list::free(foo_list_head);
 }
+
+TEST(ListTests, FromStringEmpty) {
+    list::Node* head = list::from_string("");
+
+    EXPECT_EQ(head, nullptr);
+
+    list::free(head);
+}
+
+TEST(ListTests, FreeList) {
+    list::Node* head = list::from_string("Hello");
+
+    list::free(head);
+
+    SUCCEED();
+}
+
 
 TEST(ListTests, Length) {
     Node* const head = list::from_string("foo");
