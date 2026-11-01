@@ -49,6 +49,46 @@ TEST(ListTests, Length) {
     list::free(head);
 }
 
+TEST(ListTests, LengthZero){
+	Node* const head = list::from_string("");
+	EXPECT_EQ(list::length(head), 0);
+	list::free(head);
+
+}
+
+TEST(ListTests, CopyList) {
+    list::Node* original = list::from_string("Lanadelrey");
+    list::Node* copied = list::copy(original);
+
+    ASSERT_NE(copied, nullptr);
+    ASSERT_NE(original, copied);
+
+    list::Node* a = original;
+    list::Node* b = copied;
+
+    for (; a != nullptr && b != nullptr;
+         a = a->next, b = b->next) {
+
+        EXPECT_EQ(a->data, b->data);
+        EXPECT_NE(a, b);
+    }
+
+    EXPECT_EQ(a, nullptr);
+    EXPECT_EQ(b, nullptr);
+
+    list::free(original);
+    list::free(copied);
+}
+
+TEST(ListTests, CopyEmpty){
+
+	list::Node* newhead = list::copy(nullptr);
+
+	EXPECT_EQ(newhead, nullptr);
+
+}
+
+
 // Add remaining tests below. All tests should follow
 // the format of `TEST(ListTests, <TestName>){}`.
 

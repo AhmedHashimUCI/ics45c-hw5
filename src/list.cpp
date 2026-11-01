@@ -42,5 +42,46 @@ namespace list {
 
 	}
 
+
+	int length(Node* head){
+
+		int count = 0;
+
+		for(Node* p = head; p != nullptr; p = p->next){
+
+			++count;
+
+		}
+
+		return count;
+
+	}
+
+	Node* copy(Node* head){
+		Node* newhead = nullptr;
+		Node* newtail = nullptr;
+
+	
+
+	for (Node* p = head; p != nullptr; p =p->next){
+		
+		Node* node = new Node(p->data, nullptr);
+
+		if(newhead == nullptr){
+			newhead = node;
+			newtail = node;
+
+		}else{
+			newtail->next = node;
+			newtail = node;
+
+		}
+
+	}
+
+		return newhead;
+	}
+
+
 }
 
