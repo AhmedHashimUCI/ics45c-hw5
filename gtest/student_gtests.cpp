@@ -143,4 +143,16 @@ TEST(ListTests, CompareEmpty) {
     EXPECT_GT(list::compare(a, nullptr), 0);
 
     list::free(a);
+
+}
+
+TEST(ListTests, Nth) {
+    list::Node* head = list::from_string("HELLO");
+
+    EXPECT_EQ(list::nth(head, 0), head);
+    EXPECT_EQ(list::nth(head, 1), head->next);
+    EXPECT_EQ(list::nth(head, 2), head->next->next);
+    EXPECT_EQ(list::nth(head, 4)->data, 'O');
+
+    list::free(head);
 }

@@ -126,5 +126,20 @@ namespace list {
 
 
 	}
-}
 
+
+
+	Node* nth(Node* head, int n){
+		Node* p = head;
+
+		for (int i = 0; i < n && p != nullptr; ++i){
+			p = p->next;
+
+
+		}
+
+		return p;
+
+	}
+
+}
