@@ -95,3 +95,22 @@ TEST(ListTests, CopyEmpty){
 TEST(ListTests, ReplaceMe) {
     EXPECT_TRUE(false);
 }
+
+TEST(ListTests, Print) {
+     list::Node* head = list::from_string("Hello");
+
+    std::ostringstream out;
+    list::print(out, head);
+
+    EXPECT_EQ(out.str(), "Hello");
+
+    list::free(head);
+}
+
+TEST(ListTests, PrintEmpty) {
+    std::ostringstream out;
+
+    list::print(out, nullptr);
+
+    EXPECT_EQ(out.str(), "");
+}

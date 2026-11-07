@@ -1,5 +1,5 @@
 #include "list.hpp"
-
+#include <ostream>
 
 namespace list {
 
@@ -82,6 +82,16 @@ namespace list {
 		return newhead;
 	}
 
+
+	void print(std::ostream& out, Node* head){
+
+		for(Node* p =head; p != nullptr; p = p->next){
+			out << p->data;
+
+		}
+
+
+	}
 
 }
 
