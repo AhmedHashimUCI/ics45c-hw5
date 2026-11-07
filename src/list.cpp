@@ -93,5 +93,38 @@ namespace list {
 
 	}
 
+
+	int compare(Node* a, Node* b){
+
+		for(int i = 0; a != nullptr && b != nullptr; a = a-> next, b= b->next){
+
+			if(a-> data < b->data){
+				return -1;
+
+
+			}
+
+			if(a-> data > b-> data){
+				return 1;
+
+			}
+		}
+
+			if (a == nullptr && b == nullptr) {
+        	return 0;
+    		}
+		
+
+			if (a == nullptr){
+				return -1;
+
+			}else {
+				return 1;
+
+			}
+
+
+
+	}
 }
 

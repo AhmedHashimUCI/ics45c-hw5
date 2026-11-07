@@ -114,3 +114,33 @@ TEST(ListTests, PrintEmpty) {
 
     EXPECT_EQ(out.str(), "");
 }
+TEST(ListTests, CompareEqual) {
+    list::Node* a = list::from_string("Hello");
+    list::Node* b = list::from_string("Hello");
+
+    EXPECT_EQ(list::compare(a, b), 0);
+
+    list::free(a);
+    list::free(b);
+}
+
+TEST(ListTests, CompareOrder) {
+    list::Node* a = list::from_string("Apple");
+    list::Node* b = list::from_string("Banana");
+
+    EXPECT_LT(list::compare(a, b), 0);
+    EXPECT_GT(list::compare(b, a), 0);
+
+    list::free(a);
+    list::free(b);
+}
+
+TEST(ListTests, CompareEmpty) {
+    list::Node* a = list::from_string("Hello");
+
+    EXPECT_EQ(list::compare(nullptr, nullptr), 0);
+    EXPECT_LT(list::compare(nullptr, a), 0);
+    EXPECT_GT(list::compare(a, nullptr), 0);
+
+    list::free(a);
+}
