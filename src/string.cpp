@@ -32,3 +32,16 @@ std::ostream& operator<<(std::ostream& out, const String& s){
 	return out;
 
 }
+
+
+char String::operator[](int index) const {
+
+	if(index < 0 || index >= size()){
+		return '\0';
+
+	}
+
+	return list::nth(head, index)->data;
+
+}
+

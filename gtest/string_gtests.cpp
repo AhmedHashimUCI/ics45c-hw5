@@ -71,3 +71,65 @@ TEST(StringClass, PrintEmpty) {
 
     EXPECT_EQ(out.str(), "");
 }
+
+
+TEST(StringClass, Index){
+
+	EXPECT_EQ(String("Lana")[2], 'n');
+	EXPECT_EQ(String("vow")[4], 'v');
+	EXPECT_EQ(String(" time")[0], ' ');
+	EXPECT_EQ(String("Time")[-2], 'T');
+}
+
+
+
+TEST(StringClass, indexofchar){
+
+	EXPECT_EQ(String("Burn").indexOf('n'), 3);
+	EXPECT_EQ(String("Arctic").indexOf('c'), 2);
+	EXPECT_EQ(String("Time").indexOf('c'), -1);
+	EXPECT_EQ(String("Lana Del Rey").indexOf(' '), 4);
+
+
+}
+
+TEST(StringClass, indexofstr){
+
+	EXPECT_EQ(String("Who won?").indexOf(String("won?")), 4);
+	EXPECT_EQ(String("Lana Del Rey").indexOf(String("Rey")),9 );
+
+
+}
+
+
+
+
+TEST(StringClass, Addition){
+
+	EXPECT_EQ(String("Arctic") + String(" Monkeys"), String("Arctic Monkeys"));
+	EXPECT_EQ(String(" ") + String("String"), String(" String"));
+	EXPECT_EQ(String("String")+ String(""), String("String"));
+	String s("Time");
+	String e("");
+	EXPECT_EQ(s += s,String("TimeTime"));
+	EXPECT_EQ(s += e, s);
+	EXPECT_EQ(e += s, s);
+	EXPECT_EQ(e += e, e);
+}
+
+
+TEST(StringClass, Memory) {
+    String a("Lana");
+    String b(a);
+
+    b[0] = 'B';
+
+    EXPECT_EQ(a, String("Lana"));
+    EXPECT_EQ(b, String("Bana"));
+
+    a = b;
+    EXPECT_EQ(a, b);
+
+    a += String(" Del Rey");
+    EXPECT_EQ(a, String("Bana Del Rey"));
+}
