@@ -240,3 +240,35 @@ TEST(ListTests, AppendNormal) {
     list::free(result);
     list::free(expected);
 }
+
+TEST(ListTests, ReverseNormal) {
+    list::Node* head = list::from_string("CAT");
+
+    list::Node* reversed = list::reverse(head);
+    list::Node* expected = list::from_string("TAC");
+
+    EXPECT_EQ(list::compare(reversed, expected), 0);
+    EXPECT_EQ(list::length(reversed), 3);
+
+    EXPECT_EQ(head->data, 'C');
+    EXPECT_NE(reversed, head);
+
+    list::free(head);
+    list::free(reversed);
+    list::free(expected);
+}
+
+TEST(ListTests, ReverseEdgeCases) {
+    EXPECT_EQ(list::reverse(nullptr), nullptr);
+
+    list::Node* single = list::from_string("A");
+    list::Node* reversed = list::reverse(single);
+
+    ASSERT_NE(reversed, nullptr);
+    EXPECT_EQ(reversed->data, 'A');
+    EXPECT_EQ(reversed->next, nullptr);
+    EXPECT_NE(reversed, single);
+
+    list::free(single);
+    list::free(reversed);
+}
