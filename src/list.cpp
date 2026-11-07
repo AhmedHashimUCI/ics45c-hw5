@@ -143,7 +143,7 @@ namespace list {
 	}
 
 
-	Node* lasr(Node* head){
+	Node* last(Node* head){
 		Node* p = head;
 
 		for(int i = 0; p-> next != nullptr; p =p->next){}
@@ -165,6 +165,21 @@ namespace list {
 
 		return position;
 
+
+	}
+
+
+Node* find_char(Node* head, char c){
+		
+		for(Node* p = head; p != nullptr; p=p->next){
+
+			if(p->data == c){
+				return p;
+			}
+
+		}
+
+		return nullptr;
 
 	}
 

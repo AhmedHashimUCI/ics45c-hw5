@@ -44,13 +44,13 @@ TEST(ListTests, FreeList) {
 
 
 TEST(ListTests, Length) {
-    Node* const head = from_string("foo");
+    Node* const head = list::from_string("foo");
     EXPECT_EQ(length(head), 3);
     list::free(head);
 }
 
 TEST(ListTests, LengthZero){
-	Node* const head =from_string("");
+	Node* const head =list::from_string("");
 	EXPECT_EQ(length(head), 0);
 	list::free(head);
 
@@ -159,7 +159,7 @@ TEST(ListTests, Nth) {
 
 
 TEST(ListTests, Last) {
-    Node* head = from_string("CAT");
+    Node* head = list::from_string("CAT");
 
     EXPECT_EQ(last(head), head->next->next);
     EXPECT_EQ(last(head)->data, 'T');
@@ -168,11 +168,31 @@ TEST(ListTests, Last) {
 }
 
 TEST(ListTests, Index) {
-    Node* head = from_string("HELLO");
+    Node* head = list::from_string("HELLO");
 
     EXPECT_EQ(index(head, head), 0);
     EXPECT_EQ(index(head, head->next), 1);
     EXPECT_EQ(index(head, head->next->next), 2);
 
     free(head);
+}
+
+
+TEST(ListTests, FindChar) {
+    list::Node* head = list::from_string("HELLO");
+
+    EXPECT_EQ(list::find_char(head, 'H'), head);
+    EXPECT_EQ(list::find_char(head, 'E'), head->next);
+        
+
+    list::free(head);
+}
+
+TEST(ListTests, FindCharMissing) {
+    list::Node* head = list::from_string("HELLO");
+
+    EXPECT_EQ(list::find_char(head, 'Z'), nullptr);
+   	EXPECT_EQ(list::find_char(nullptr, 'A'), nullptr);
+
+    list::free(head);
 }
