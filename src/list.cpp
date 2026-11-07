@@ -183,4 +183,32 @@ Node* find_char(Node* head, char c){
 
 	}
 
+
+Node* find_list(Node* haystack, Node* needle){
+	
+	if(needle == nullptr)
+	return haystack;
+
+	for(Node* start = haystack; start !=nullptr; start = start -> next){
+		 Node* a = start;
+         Node* b = needle;
+
+		for (; a != nullptr && b != nullptr;a = a->next, b = b->next) {
+
+    	if (a->data != b->data) {
+        	break;
+    		}
+		}
+
+		if (b == nullptr) {
+            return start;
+        }
+
+	}
+
+
+	return nullptr;
+	}
+
+
 }

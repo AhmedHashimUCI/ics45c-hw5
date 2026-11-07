@@ -196,3 +196,23 @@ TEST(ListTests, FindCharMissing) {
 
     list::free(head);
 }
+
+TEST(ListTests, FindListNormal) {
+    list::Node* head = list::from_string("BANANA");
+    list::Node* needle = list::from_string("ANA");
+
+    EXPECT_EQ(list::find_list(head, needle), head->next);
+
+    list::free(head);
+    list::free(needle);
+}
+
+TEST(ListTests, FindListMissing) {
+    list::Node* head = list::from_string("HELLO");
+    list::Node* needle = list::from_string("WORLD");
+
+    EXPECT_EQ(list::find_list(head, needle), nullptr);
+
+    list::free(head);
+    list::free(needle);
+}
