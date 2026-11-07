@@ -142,4 +142,30 @@ namespace list {
 
 	}
 
+
+	Node* lasr(Node* head){
+		Node* p = head;
+
+		for(int i = 0; p-> next != nullptr; p =p->next){}
+	
+		return p;
+
+	}
+
+
+
+	int index(Node* head, Node* node){
+		int position = 0;
+
+		for(Node* p = head; p != node; p= p->next){
+			++position;
+		
+
+		}
+
+		return position;
+
+
+	}
+
 }

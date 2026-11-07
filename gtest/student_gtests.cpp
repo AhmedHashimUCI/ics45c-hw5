@@ -44,14 +44,14 @@ TEST(ListTests, FreeList) {
 
 
 TEST(ListTests, Length) {
-    Node* const head = list::from_string("foo");
-    EXPECT_EQ(list::length(head), 3);
+    Node* const head = from_string("foo");
+    EXPECT_EQ(length(head), 3);
     list::free(head);
 }
 
 TEST(ListTests, LengthZero){
-	Node* const head = list::from_string("");
-	EXPECT_EQ(list::length(head), 0);
+	Node* const head =from_string("");
+	EXPECT_EQ(length(head), 0);
 	list::free(head);
 
 }
@@ -155,4 +155,24 @@ TEST(ListTests, Nth) {
     EXPECT_EQ(list::nth(head, 4)->data, 'O');
 
     list::free(head);
+}
+
+
+TEST(ListTests, Last) {
+    Node* head = from_string("CAT");
+
+    EXPECT_EQ(last(head), head->next->next);
+    EXPECT_EQ(last(head)->data, 'T');
+
+    free(head);
+}
+
+TEST(ListTests, Index) {
+    Node* head = from_string("HELLO");
+
+    EXPECT_EQ(index(head, head), 0);
+    EXPECT_EQ(index(head, head->next), 1);
+    EXPECT_EQ(index(head, head->next->next), 2);
+
+    free(head);
 }
