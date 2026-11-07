@@ -101,7 +101,20 @@ TEST(StringClass, indexofstr){
 
 }
 
+TEST(StringClass, Ordering) {
+    String a("Apple");
+    String b("Banana");
+    String c("Apple");
 
+    EXPECT_TRUE(a < b);
+    EXPECT_TRUE(b > a);
+
+    EXPECT_TRUE(a <= c);
+    EXPECT_TRUE(a >= c);
+
+    EXPECT_FALSE(a > b);
+    EXPECT_FALSE(b < a);
+}
 
 
 TEST(StringClass, Addition){

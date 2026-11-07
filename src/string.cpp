@@ -1,6 +1,7 @@
 #include "string.hpp"
 #include "list.hpp"
 #include <ostream>
+#include <compare>
 
 
 
@@ -45,3 +46,13 @@ char String::operator[](int index) const {
 
 }
 
+
+bool String::operator==(const String& other) const {
+
+	return list::comapre(head, other.head) ==0;
+
+}
+
+std::strong_ordering String::operator<=>(const String& other) const {
+    return list::compare(head, other.head) <=> 0;
+}
