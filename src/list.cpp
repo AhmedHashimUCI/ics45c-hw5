@@ -211,4 +211,31 @@ Node* find_list(Node* haystack, Node* needle){
 	}
 
 
+
+Node* append(Node* a, Node* b){
+
+	Node* result = copy(a);
+	Node* tail = result == nullptr ? nullptr : last(result);
+
+	for(Node* p = b; p!=nullptr; p=p->next){
+		Node* node = new Node{p->data, nullptr};
+
+		if(result == nullptr){
+			result = node;
+		} else {
+
+			tail->next = node;
+		}
+
+		tail = node;
+
+
+	}
+
+		return result;
+
+
+	}
+
+
 }

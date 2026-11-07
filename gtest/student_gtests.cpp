@@ -216,3 +216,27 @@ TEST(ListTests, FindListMissing) {
     list::free(head);
     list::free(needle);
 }
+
+
+TEST(ListTests, AppendNormal) {
+    list::Node* a = list::from_string("CAT");
+    list::Node* b = list::from_string("DOG");
+
+    list::Node* result = list::append(a, b);
+
+    list::Node* expected = list::from_string("CATDOG");
+
+    EXPECT_EQ(list::compare(result, expected), 0);
+    EXPECT_EQ(list::length(result), 6);
+
+    EXPECT_EQ(list::length(a), 3);
+    EXPECT_EQ(list::length(b), 3);
+
+    EXPECT_NE(result, a);
+    EXPECT_NE(list::nth(result, 3), b);
+
+    list::free(a);
+    list::free(b);
+    list::free(result);
+    list::free(expected);
+}
