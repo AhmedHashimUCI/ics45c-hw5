@@ -53,3 +53,21 @@ TEST(StringClass, Assignment) {
     EXPECT_EQ(s, String());
     EXPECT_EQ(s.size(), 0);
 }
+
+TEST(StringClass, PrintNormal) {
+    String s("Hello");
+
+    std::ostringstream out;
+    s.print(out);
+
+    EXPECT_EQ(out.str(), "Hello");
+}
+
+TEST(StringClass, PrintEmpty) {
+    String s("");
+
+    std::ostringstream out;
+    out << s;
+
+    EXPECT_EQ(out.str(), "");
+}
