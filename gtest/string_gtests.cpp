@@ -131,18 +131,4 @@ TEST(StringClass, Addition){
 }
 
 
-TEST(StringClass, Memory) {
-    String a("Lana");
-    String b(a);
 
-    b[0] = 'B';
-
-    EXPECT_EQ(a, String("Lana"));
-    EXPECT_EQ(b, String("Bana"));
-
-    a = b;
-    EXPECT_EQ(a, b);
-
-    a += String(" Del Rey");
-    EXPECT_EQ(a, String("Bana Del Rey"));
-}

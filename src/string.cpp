@@ -49,10 +49,30 @@ char String::operator[](int index) const {
 
 bool String::operator==(const String& other) const {
 
-	return list::comapre(head, other.head) ==0;
+	return list::compare(head, other.head) ==0;
 
 }
 
 std::strong_ordering String::operator<=>(const String& other) const {
     return list::compare(head, other.head) <=> 0;
+}
+
+
+String String::operator+(const String& other) const {
+	return String(list::append(head, other.head));
+}
+
+
+String& String::operator+=(const String& other){
+	list::Node* p = list::copy(other.head);
+	
+	if(head == nullptr){
+		head = p;
+	} else {
+		list::last(head)->next = p;
+
+	}
+
+	return *this;
+
 }
