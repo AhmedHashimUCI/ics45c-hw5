@@ -123,6 +123,31 @@ String String::reverse() const{
 
 }
 
+
+int String:indexOf(char c) const {
+
+	list::Node* p = list::find_char(head, c);
+
+	if(found == nullptr)
+	return -1;
+
+	return list::index(head, p);
+
+}
+
+int String::indexOf(const String& s) const {
+	
+	list::Node* p = list::find_list(head, s.head);
+
+	if (found == nullptr)
+	return s.head == nullptr ? 0 : -1;
+
+	return list::index(head, p);
+
+
+
+}
+
 String::~String(){
 
 	list::free(head);
