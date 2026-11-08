@@ -37,7 +37,7 @@ std::ostream& operator<<(std::ostream& out, const String& s){
 
 char String::operator[](int index) const {
 
-	if(index < 0 || index >= size()){
+	if(!in_bounds(index)){
 		return '\0';
 
 	}
@@ -90,5 +90,42 @@ String& String::operator=(const String& other){
 
 	return *this;
 
+}
+
+String& String::operator=(String&& other){
+	if(this != &other){
+		list::free(head);
+		head = other.head;
+		other.head = nullptr;
+
+	}
+
+	return *this;
 
 }
+
+
+
+void String::swap(String& s){
+
+	list::Node* p = head;
+	head = s.head;
+	s.head = p;
+
+}
+
+bool String::in_bounds(int index) const {
+    return index >= 0 && index < size();
+}
+
+String String::reverse() const{
+	return String(list::reverse(head));
+
+}
+
+String::~String(){
+
+	list::free(head);
+}
+
+

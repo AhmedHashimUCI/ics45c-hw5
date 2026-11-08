@@ -131,4 +131,21 @@ TEST(StringClass, Addition){
 }
 
 
+TEST(StringClass, MoveAssignment) {
+    String a("CAT");
+    String b("DOG");
 
+    a = std::move(b);
+
+    EXPECT_EQ(a, String("DOG"));
+    EXPECT_EQ(b.size(), 0);
+}
+
+
+TEST(StringClass, SelfMoveAssignment) {
+    String a("HELLO");
+
+    a = std::move(a);
+
+    EXPECT_EQ(a, String("HELLO"));
+}
