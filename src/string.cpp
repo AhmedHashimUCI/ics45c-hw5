@@ -76,3 +76,19 @@ String& String::operator+=(const String& other){
 	return *this;
 
 }
+
+String& String::operator=(const String& other){
+
+	if(this != &other){
+		list::Node* newHead = list::copy(other.head);
+
+		list::free(head);
+
+		head = newHead;
+
+	}
+
+	return *this;
+
+
+}
