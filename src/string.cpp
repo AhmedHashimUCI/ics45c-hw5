@@ -26,7 +26,10 @@ int String::size() const{
 
 }
 
-
+String::String(String&& s)
+    : head(s.head) {
+    s.head = nullptr;
+}
 void String::print(std::ostream& out) const {
 
 	list::print(out, head);

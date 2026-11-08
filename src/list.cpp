@@ -93,39 +93,55 @@ namespace list {
 
 	}
 
+	int compare(Node* a, Node* b) {
+    for (; a != nullptr && b != nullptr;
+         a = a->next, b = b->next) {
 
-	int compare(Node* a, Node* b){
+        if (a->data < b->data) {
+            return -1;
+        }
 
-		for(int i = 0; a != nullptr && b != nullptr; a = a-> next, b= b->next){
+        if (a->data > b->data) {
+            return 1;
+        }
+    }
 
-			if(a-> data < b->data){
-				return -1;
+    if (a == nullptr && b == nullptr) {
+        return 0;
+    }
 
-
-			}
-
-			if(a-> data > b-> data){
-				return 1;
-
-			}
-		}
-
-			if (a == nullptr && b == nullptr) {
-        	return 0;
-    		}
-		
-
-			if (a == nullptr){
-				return -1;
-
-			}else {
-				return 1;
-
-			}
-
-
-
+    return a == nullptr ? -1 : 1;
 	}
+
+
+	int compare(Node* a, Node* b, int n) {
+    for (int i = 0; i < n; ++i) {
+        if (a == nullptr && b == nullptr) {
+            return 0;
+        }
+
+        if (a == nullptr) {
+            return -1;
+        }
+
+        if (b == nullptr) {
+            return 1;
+        }
+
+        if (a->data < b->data) {
+            return -1;
+        }
+
+        if (a->data > b->data) {
+            return 1;
+        }
+
+        a = a->next;
+        b = b->next;
+    }
+
+    return 0;
+}
 
 
 
@@ -146,7 +162,7 @@ namespace list {
 	Node* last(Node* head){
 		Node* p = head;
 
-		for(int i = 0; p-> next != nullptr; p =p->next){}
+		for(; p-> next != nullptr; p =p->next){}
 	
 		return p;
 
