@@ -149,3 +149,78 @@ TEST(StringClass, SelfMoveAssignment) {
 
     EXPECT_EQ(a, String("HELLO"));
 }
+
+TEST(StringClass, SubscriptPrintsError) {
+    String s("HELLO");
+
+    testing::internal::CaptureStderr();
+
+    char result = s[5];
+
+    std::string output = testing::internal::GetCapturedStderr();
+
+    EXPECT_EQ(result, 'H');
+    EXPECT_FALSE(output.empty());
+}
+
+TEST(StringClass, InvalidSubscriptCases) {
+    String s("HELLO");
+    String empty("");
+
+    testing::internal::CaptureStderr();
+
+    EXPECT_EQ(s[-2], 'H');
+    EXPECT_EQ(s[100], 'H');
+    EXPECT_EQ(empty[0], '\0');
+
+    std::string output = testing::internal::GetCapturedStderr();
+
+    EXPECT_FALSE(output.empty());
+}
+
+TEST(ListTests, FindListOverlapping) {
+    list::Node* head = list::from_string("AAAAB");
+    list::Node* needle = list::from_string("AAB");
+
+    EXPECT_EQ(
+        list::find_list(head, needle),
+        list::nth(head, 2)
+    );
+
+    list::free(head);
+    list::free(needle);
+}
+
+TEST(ListTests, CopyNoSharedNodes) {
+    list::Node* original = list::from_string("HELLO");
+    list::Node* copied = list::copy(original);
+
+    list::Node* a = original;
+    list::Node* b = copied;
+
+    for (; a != nullptr && b != nullptr;
+         a = a->next, b = b->next) {
+
+        EXPECT_EQ(a->data, b->data);
+        EXPECT_NE(a, b);
+    }
+
+    EXPECT_EQ(a, nullptr);
+    EXPECT_EQ(b, nullptr);
+
+    list::free(original);
+    list::free(copied);
+}
+
+TEST(ListTests, CompareNBoundary) {
+    list::Node* a = list::from_string("ABCDE");
+    list::Node* b = list::from_string("ABCXY");
+
+    EXPECT_EQ(list::compare(a, b, 0), 0);
+    EXPECT_EQ(list::compare(a, b, 3), 0);
+    EXPECT_LT(list::compare(a, b, 4), 0);
+    EXPECT_LT(list::compare(a, b, 100), 0);
+
+    list::free(a);
+    list::free(b);
+}

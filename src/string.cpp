@@ -3,6 +3,7 @@
 #include <ostream>
 #include <compare>
 #include <istream>
+#include <iostream>
 
 
 
@@ -46,6 +47,7 @@ std::ostream& operator<<(std::ostream& out, const String& s){
 char String::operator[](int index) const {
 
 	if(!in_bounds(index)){
+		std::cerr << "ERROR: Index out of bounds" << std::endl;
 		return head == nullptr ? '\0' : head->data;;
 
 	}
