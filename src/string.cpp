@@ -2,6 +2,7 @@
 #include "list.hpp"
 #include <ostream>
 #include <compare>
+#include <istream>
 
 
 
@@ -12,7 +13,11 @@ String::String(const char* s):
 
 
 String::String(const String& other)
-    : head(other.head) {
+    : head(list::copy(other.head)) {
+}
+
+String::String(list::Node* head)
+    : head(head) {
 }
 
 int String::size() const{
@@ -38,7 +43,7 @@ std::ostream& operator<<(std::ostream& out, const String& s){
 char String::operator[](int index) const {
 
 	if(!in_bounds(index)){
-		return '\0';
+		return head == nullptr ? '\0' : head->data;;
 
 	}
 
@@ -124,11 +129,11 @@ String String::reverse() const{
 }
 
 
-int String:indexOf(char c) const {
+int String::indexOf(char c) const {
 
 	list::Node* p = list::find_char(head, c);
 
-	if(found == nullptr)
+	if(p  == nullptr)
 	return -1;
 
 	return list::index(head, p);
@@ -139,12 +144,31 @@ int String::indexOf(const String& s) const {
 	
 	list::Node* p = list::find_list(head, s.head);
 
-	if (found == nullptr)
+	if (p == nullptr)
 	return s.head == nullptr ? 0 : -1;
 
 	return list::index(head, p);
 
+}
 
+
+void String::read(std::istream& in){
+	std::string temp;
+
+	if(in >> temp){
+		list::Node* newhead = list::from_string(temp.c_str());
+		
+		list::free(head);
+		head = newhead;
+	}
+
+
+}
+
+std::istream& operator>>(std::istream& in, String& s){
+
+	s.read(in);
+	return in;
 
 }
 
