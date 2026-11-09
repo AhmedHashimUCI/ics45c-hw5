@@ -48,7 +48,7 @@ char String::operator[](int index) const {
 
 	if(!in_bounds(index)){
 		std::cerr << "ERROR: Index out of bounds" << std::endl;
-		return head == nullptr ? '\0' : head->data;;
+		return head == nullptr ? '\0' : head->data;
 
 	}
 

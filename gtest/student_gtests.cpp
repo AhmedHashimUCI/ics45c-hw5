@@ -269,3 +269,126 @@ TEST(ListTests, ReverseEdgeCases) {
     list::free(single);
     list::free(reversed);
 }
+
+TEST(ListTests, FindListEmptyCases) {
+    Node* head = list::from_string("HELLO");
+    Node* needle = list::from_string("H");
+
+    EXPECT_EQ(list::find_list(head, nullptr), head);
+    EXPECT_EQ(list::find_list(nullptr, nullptr), nullptr);
+    EXPECT_EQ(list::find_list(nullptr, needle), nullptr);
+
+    list::free(head);
+    list::free(needle);
+}
+
+TEST(ListTests, FindListOverlapping) {
+    Node* head = list::from_string("AAAAB");
+    Node* needle = list::from_string("AAB");
+
+    EXPECT_EQ(
+        list::find_list(head, needle),
+        list::nth(head, 2)
+    );
+
+    list::free(head);
+    list::free(needle);
+}
+
+TEST(ListTests, FindListPartialThenFull) {
+    Node* head = list::from_string("ABCABCABD");
+    Node* needle = list::from_string("ABCABD");
+
+    EXPECT_EQ(
+        list::find_list(head, needle),
+        list::nth(head, 3)
+    );
+
+    list::free(head);
+    list::free(needle);
+}
+
+TEST(ListTests, CompareNBoundaries) {
+    Node* a = list::from_string("ABCDE");
+    Node* b = list::from_string("ABCXY");
+
+    EXPECT_EQ(list::compare(a, b, 0), 0);
+    EXPECT_EQ(list::compare(a, b, 1), 0);
+    EXPECT_EQ(list::compare(a, b, 3), 0);
+
+    EXPECT_LT(list::compare(a, b, 4), 0);
+    EXPECT_GT(list::compare(b, a, 4), 0);
+
+    EXPECT_LT(list::compare(a, b, 100), 0);
+
+    list::free(a);
+    list::free(b);
+}
+
+TEST(ListTests, CompareNPrefix) {
+    Node* a = list::from_string("CAT");
+    Node* b = list::from_string("CATS");
+
+    EXPECT_EQ(list::compare(a, b, 3), 0);
+    EXPECT_LT(list::compare(a, b, 4), 0);
+    EXPECT_GT(list::compare(b, a, 4), 0);
+
+    EXPECT_EQ(list::compare(nullptr, nullptr, 0), 0);
+
+    list::free(a);
+    list::free(b);
+}
+
+TEST(ListTests, AppendEmptyCases) {
+    Node* a = list::from_string("HELLO");
+
+    Node* first = list::append(nullptr, a);
+    Node* second = list::append(a, nullptr);
+    Node* empty = list::append(nullptr, nullptr);
+
+    EXPECT_EQ(list::compare(first, a), 0);
+    EXPECT_EQ(list::compare(second, a), 0);
+    EXPECT_EQ(empty, nullptr);
+
+    EXPECT_NE(first, a);
+    EXPECT_NE(second, a);
+    EXPECT_NE(first, second);
+
+    list::free(a);
+    list::free(first);
+    list::free(second);
+    list::free(empty);
+}
+
+TEST(ListTests, AppendDeepCopy) {
+    Node* a = list::from_string("ABC");
+    Node* b = list::from_string("DEF");
+
+    Node* result = list::append(a, b);
+
+    ASSERT_NE(result, nullptr);
+    EXPECT_EQ(list::length(result), 6);
+
+    Node* p = result;
+    Node* q = a;
+
+    for (; q != nullptr; q = q->next, p = p->next) {
+        ASSERT_NE(p, nullptr);
+        EXPECT_EQ(p->data, q->data);
+        EXPECT_NE(p, q);
+    }
+
+    q = b;
+
+    for (; q != nullptr; q = q->next, p = p->next) {
+        ASSERT_NE(p, nullptr);
+        EXPECT_EQ(p->data, q->data);
+        EXPECT_NE(p, q);
+    }
+
+    EXPECT_EQ(p, nullptr);
+
+    list::free(a);
+    list::free(b);
+    list::free(result);
+}
